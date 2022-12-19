@@ -16,10 +16,11 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def root():
     return "OK"
 
-@app.route("/alerta", methods=['POST'])
+@app.route("/alerta", methods=['POST', 'GET'])
 @cross_origin()
 def alerta():
 
+    data = request.get_json()
     msg = request.json
     tiempo = msg['time']
     exchange = msg['exchange']
@@ -34,8 +35,10 @@ def alerta():
 
     return {
         'code': 'Exitosa',
-        'msg': msg
+        'msg': msg,
+        'data': data
     }
+
 
 
 #https://dazapi.herokuapp.com/alerta
