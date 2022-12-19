@@ -12,16 +12,14 @@ API_SECRET = 'your_secret_key' """
 
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'application/json'
+CORS(app)
+
 
 @app.route("/")
-@cross_origin()
 def root():
     return "OK"
 
 @app.route("/alerta", methods=['POST'])
-@cross_origin()
 def alerta():
 
     msg = request.json
