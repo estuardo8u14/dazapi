@@ -16,10 +16,12 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'application/json'
 
 @app.route("/")
+@cross_origin()
 def root():
     return "OK"
 
 @app.route("/alerta", methods=['POST'])
+@cross_origin()
 def alerta():
 
     msg = request.json
