@@ -14,7 +14,11 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/")
 @cross_origin()
 def root():
-    return "OK"
+    msg = request.json
+    return {
+        'code': 'Exitosa',
+        'msg': msg,
+    }
 
 @app.route("/alerta", methods=['POST', 'GET'])
 @cross_origin()
