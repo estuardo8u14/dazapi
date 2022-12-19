@@ -1,5 +1,5 @@
 from flask import Flask, request
-import ccxt
+#import ccxt
 
 
 app = Flask(__name__)
