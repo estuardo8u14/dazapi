@@ -34,7 +34,7 @@ def alerta():
         'msg': msg
     }
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET'])
 def my_profile():
     response_body = {
         "name": "Estuardo",
