@@ -1,4 +1,6 @@
 from flask import Flask, request
+from flask_cors import cross_origin
+
 #Import ccxt
 #Para futuro si queremos que ejecute ordenes automatizadas por binance
 """ PASSWORD = 'your_password'
@@ -12,6 +14,7 @@ def root():
     return "OK"
 
 @app.route("/alerta", methods=['POST'])
+@cross_origin()
 def alerta():
 
     msg = request.json
