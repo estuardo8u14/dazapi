@@ -39,7 +39,7 @@ def alerta():
         'msg': msg
     }
 
-@app.route('/profile', methods=['GET'])
+@app.route('/profile')
 @cross_origin()
 def my_profile():
     response_body = {
