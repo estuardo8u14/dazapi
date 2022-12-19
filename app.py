@@ -1,6 +1,6 @@
 from flask import Flask, request
 import ccxt
-import config
+
 
 app = Flask(__name__)
 
@@ -31,6 +31,6 @@ def alerta():
 """ {
 "time": {{time}},
 "exchange":  {{exchange}},
-"ticker": {{ticker}}",
+"ticker": {{ticker}},
 "texto": "Alert! Short-Venta"
 } """
