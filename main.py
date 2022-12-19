@@ -1,5 +1,4 @@
 from flask import Flask, request
-from flask_cors import CORS, cross_origin
 #Import ccxt
 #Para futuro si queremos que ejecute ordenes automatizadas por binance
 """ PASSWORD = 'your_password'
