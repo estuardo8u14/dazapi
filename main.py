@@ -6,14 +6,7 @@ from flask_cors import CORS, cross_origin
 API_KEY = 'your_api_key' 
 API_SECRET = 'your_secret_key' """
 
-
-
-
-
-
 app = Flask(__name__)
-CORS(app)
-
 
 @app.route("/")
 def root():
