@@ -4,17 +4,22 @@ from flask import Flask, request
 """ PASSWORD = 'your_password'
 API_KEY = 'your_api_key' 
 API_SECRET = 'your_secret_key' """
-
+from flask_cors import CORS, cross_origin
 
 
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/")
+@cross_origin()
 def root():
     return "OK"
 
 @app.route("/alerta", methods=['POST'])
+@cross_origin()
 def alerta():
 
     msg = request.json
@@ -35,6 +40,7 @@ def alerta():
     }
 
 @app.route('/profile', methods=['GET'])
+@cross_origin()
 def my_profile():
     response_body = {
         "name": "Estuardo",
