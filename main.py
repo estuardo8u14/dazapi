@@ -10,7 +10,9 @@ API_SECRET = 'your_secret_key' """
 
 app = Flask(__name__)
 
-
+@app.route("/")
+def root():
+    return "OK"
 
 @app.route("/alerta", methods=['POST'])
 
