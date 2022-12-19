@@ -36,14 +36,6 @@ def alerta():
         'msg': msg
     }
 
-@app.route('/profile', methods=['GET'])
-def my_profile():
-    response_body = {
-        "name": "Estuardo",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
-    }
-
-    return response_body
 
 #https://dazapi.herokuapp.com/alerta
 
