@@ -64,9 +64,9 @@ def post_alerta():
     time = data['time']
     exchange = data['exchange']
     ticker = data['ticker']
-    texto = data['texto']
     precio = data['precio']
     indicadores = data['indicadores']
+    texto = data['texto']
 
     mydb = mysql.connector.connect(
         host="sql5.freesqldatabase.com",
@@ -98,10 +98,10 @@ def post_alerta():
     mydb.commit()
 
     if(int(mycursor.rowcount) > 0):
-        return True
+        return "True"
     
     else:
-        return False
+        return "False"
 
 @app.route("/get_alerta", methods=["GET"])
 @cross_origin()
@@ -114,29 +114,29 @@ def get_alerta():
     )
     mycursor = mydb.cursor()
 
-    sql = "SELECT id, time, exchange, ticker, precio, indicadores, texto FROM notifs where id="+ 1 +""
+    sql = "SELECT id, time, exchange, ticker, precio, indicadores, texto FROM notifs where id=4"
     mycursor.execute(sql)
     results = mycursor.fetchall()
 
     
     data = []
-    
-    print(results)
+
     for result in results:
         dict = {}
-        print("id :", result[0], "time :", result[1] )
         dict["id"] = result[0]
+        dict["time"] = result[1]
+       
         dict["exchange"] = result[2]
-        dict["ticker"] = result[1]
-        dict["precio"] = result[3]
+        dict["ticker"] = result[3]
+        dict["precio"] = result[4]
 
-        dict["indicadores"] = result[4]
-        dict["texto"] = result[5]
+        dict["indicadores"] = result[5]
+        dict["texto"] = result[6]
 
         data.append(dict)
 
     print(data)
-    return data
+    return dict
 
 #https://dazapi.herokuapp.com/alerta
 
