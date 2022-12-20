@@ -114,7 +114,7 @@ def get_alerta():
     )
     mycursor = mydb.cursor()
 
-    sql = "SELECT id, time, exchange, ticker, precio, indicadores, texto FROM notifs where id=4"
+    sql = "SELECT id, time, exchange, ticker, precio, indicadores, texto FROM notifs WHERE id= (SELECT MAX(id) FROM notifs)"
     mycursor.execute(sql)
     results = mycursor.fetchall()
 
