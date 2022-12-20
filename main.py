@@ -19,6 +19,7 @@ def root():
         'Tiempo': '2022-12-20',
         'Exchange': 'BINANCE',
         'Ticker': 'BTCUSDT',
+        'Precio': '200',
         'Texto': 'Sell Short'
     }
 
@@ -32,6 +33,8 @@ def alerta():
     exchange = msg['exchange']
     ticker = msg['ticker']
     texto = msg['texto']
+    precio = msg['precio']
+    print(precio)
     print(tiempo)
     print(exchange)
     print(ticker)
@@ -45,6 +48,7 @@ def alerta():
         'Exchange1': exchange,
         'Ticker1': ticker,
         'Texto1': texto,
+        'Precio1': precio,
         'msg': msg
     }
 
