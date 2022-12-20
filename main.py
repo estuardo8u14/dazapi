@@ -22,7 +22,7 @@ def root():
         'Texto': 'Sell Short'
     }
 
-@app.route("/alerta", methods=['POST'])
+@app.route("/alerta", methods=['POST', 'GET'])
 @cross_origin()
 def alerta():
 
@@ -40,7 +40,11 @@ def alerta():
 
 
     return {
-        'code': 'Exitosa',
+        'Code1': 'Exitosa',
+        'Tiempo1': tiempo,
+        'Exchange1': exchange,
+        'Ticker1': ticker,
+        'Texto1': texto,
         'msg': msg
     }
 
