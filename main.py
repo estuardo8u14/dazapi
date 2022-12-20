@@ -19,7 +19,7 @@ def root():
         'Tiempo': '2022-12-20',
         'Exchange': 'BINANCE',
         'Ticker': 'BTCUSDT',
-        'Precio': '200',
+        'Precio': '16,700',
         'Texto': 'Sell Short'
     }
 
