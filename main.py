@@ -1,5 +1,7 @@
 from flask import Flask, request
 from flask_cors import cross_origin, CORS
+import mysql.connector
+from pydantic import BaseModel
 
 #Import ccxt
 #Para futuro si queremos que ejecute ordenes automatizadas por binance
@@ -10,6 +12,7 @@ API_SECRET = 'your_secret_key' """
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/")
 @cross_origin()
@@ -27,31 +30,113 @@ def root():
 @cross_origin()
 def alerta():
 
-    data = request.get_json()
+    
     msg = request.json
-    tiempo = msg['time']
+    time = msg['time']
     exchange = msg['exchange']
     ticker = msg['ticker']
     texto = msg['texto']
     precio = msg['precio']
-    print(precio)
-    print(tiempo)
+    indicadores = msg['indicadores']
+
+    print(time)
     print(exchange)
     print(ticker)
+    print(precio)
+    print(indicadores)
     print(texto)
 
 
 
     return {
         'Code1': 'Exitosa',
-        'Tiempo1': tiempo,
+        'Tiempo1': time,
         'Exchange1': exchange,
         'Ticker1': ticker,
         'Texto1': texto,
         'Precio1': precio
     }
 
+@app.route("/post_alerta", methods=['POST'])
+@cross_origin()
+def post_alerta():
+    data = request.get_json()
+    time = data['time']
+    exchange = data['exchange']
+    ticker = data['ticker']
+    texto = data['texto']
+    precio = data['precio']
+    indicadores = data['indicadores']
 
+    mydb = mysql.connector.connect(
+        host="sql5.freesqldatabase.com",
+        user="sql5585708",
+        password="dslZ3LQlhu",
+        database="sql5585708"
+    )
+    print(type(data))
+    print(time)
+    print(exchange)
+    print(ticker)
+    print(precio)
+    print(indicadores)
+    print(texto)
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO notifs" + " (time, exchange, ticker, precio, indicadores, texto) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (
+        data['time'],
+        data['exchange'],
+        data['ticker'],
+        data['precio'],
+        data['indicadores'],
+        data['texto']
+    )
+    mycursor.execute(sql, (val))
+
+    mydb.commit()
+
+    if(int(mycursor.rowcount) > 0):
+        return True
+    
+    else:
+        return False
+
+@app.route("/get_alerta", methods=["GET"])
+@cross_origin()
+def get_alerta():
+    mydb = mysql.connector.connect(
+        host="sql5.freesqldatabase.com",
+        user="sql5585708",
+        password="dslZ3LQlhu",
+        database="sql5585708"
+    )
+    mycursor = mydb.cursor()
+
+    sql = "SELECT id, time, exchange, ticker, precio, indicadores, texto FROM notifs where id="+ 1 +""
+    mycursor.execute(sql)
+    results = mycursor.fetchall()
+
+    
+    data = []
+    
+    print(results)
+    for result in results:
+        dict = {}
+        print("id :", result[0], "time :", result[1] )
+        dict["id"] = result[0]
+        dict["exchange"] = result[2]
+        dict["ticker"] = result[1]
+        dict["precio"] = result[3]
+
+        dict["indicadores"] = result[4]
+        dict["texto"] = result[5]
+
+        data.append(dict)
+
+    print(data)
+    return data
 
 #https://dazapi.herokuapp.com/alerta
 
