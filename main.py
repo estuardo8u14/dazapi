@@ -15,10 +15,14 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def root():
     return {
-        'code': 'Exitosa'
+        'Code': 'Exitosa',
+        'Tiempo': '2022-12-20',
+        'Exchange': 'BINANCE',
+        'Ticker': 'BTCUSDT',
+        'Texto': 'Sell Short'
     }
 
-@app.route("/alerta", methods=['POST', 'GET'])
+@app.route("/alerta", methods=['POST'])
 @cross_origin()
 def alerta():
 
@@ -37,8 +41,7 @@ def alerta():
 
     return {
         'code': 'Exitosa',
-        'msg': msg,
-        'data': data
+        'msg': msg
     }
 
 
