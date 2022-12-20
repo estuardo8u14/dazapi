@@ -48,8 +48,7 @@ def alerta():
         'Exchange1': exchange,
         'Ticker1': ticker,
         'Texto1': texto,
-        'Precio1': precio,
-        'msg': msg
+        'Precio1': precio
     }
 
 
