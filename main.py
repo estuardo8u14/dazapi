@@ -2,6 +2,9 @@ from flask import Flask, request
 from flask_cors import cross_origin, CORS
 import mysql.connector
 from pydantic import BaseModel
+from twilio.rest import Client 
+ 
+
 
 #Import ccxt
 #Para futuro si queremos que ejecute ordenes automatizadas por binance
@@ -17,13 +20,20 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/")
 @cross_origin()
 def root():
+    account_sid = 'AC6e062b7d696ef5104f95ecebb202aae6' 
+    auth_token = '556257ac7c51cb2470f35316e6ddac47' 
+    client = Client(account_sid, auth_token) 
+ 
+    message = client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body='Esta es una alerta prueba ejemplo completamente editable. Details: dazalert.com',      
+                              to='whatsapp:+50241067266' 
+                          ) 
+ 
+    print(message.sid)
     return {
-        'Code': 'Exitosa',
-        'Tiempo': '2022-12-20',
-        'Exchange': 'BINANCE',
-        'Ticker': 'BTCUSDT',
-        'Precio': '16,700',
-        'Texto': 'Sell Short'
+        'Code': 'Conectado',
+        'Whatsapp': message.sid,
     }
 
 @app.route("/alerta", methods=['POST', 'GET'])
@@ -59,6 +69,18 @@ def post_alerta():
     precio = data['precio']
     indicadores = data['indicadores']
     texto = data['texto']
+    account_sid = 'AC6e062b7d696ef5104f95ecebb202aae6' 
+    auth_token = '556257ac7c51cb2470f35316e6ddac47' 
+    client = Client(account_sid, auth_token) 
+ 
+    message = client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body='Esta es una alerta prueba ejemplo completamente editable. Details: dazalert.com',      
+                              to='whatsapp:+50241067266' 
+                          ) 
+ 
+    print(message.sid)
+    
 
     mydb = mysql.connector.connect(
         host="sql5.freesqldatabase.com",
@@ -84,8 +106,10 @@ def post_alerta():
     mydb.commit()
 
     if(int(mycursor.rowcount) > 0):
-        return True
-    
+        return {
+        'Code': 'Notif recibida a base de datos',
+        'Whatsapp': message.sid,
+    }
     else:
         return False
 
@@ -123,6 +147,14 @@ def get_alerta():
 
     print(data)
     return dict
+
+#get mensaje en forma correcta para whatsappAPI
+
+
+#send de mensaje ppor whatsapp
+
+
+
 
 #https://dazapi.herokuapp.com/alerta
 
