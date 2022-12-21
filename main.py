@@ -67,12 +67,6 @@ def post_alerta():
         database="sql5585708"
     )
     print(type(data))
-    print(time)
-    print(exchange)
-    print(ticker)
-    print(precio)
-    print(indicadores)
-    print(texto)
 
     mycursor = mydb.cursor()
 
