@@ -37,14 +37,6 @@ def alerta():
     ticker = msg['ticker']
     texto = msg['texto']
     precio = msg['precio']
-    indicadores = msg['indicadores']
-
-    print(time)
-    print(exchange)
-    print(ticker)
-    print(precio)
-    print(indicadores)
-    print(texto)
 
 
 
