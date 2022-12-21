@@ -20,20 +20,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/")
 @cross_origin()
 def root():
-    account_sid = 'AC6e062b7d696ef5104f95ecebb202aae6' 
-    auth_token = '556257ac7c51cb2470f35316e6ddac47' 
-    client = Client(account_sid, auth_token) 
- 
-    message = client.messages.create( 
-                              from_='whatsapp:+14155238886',  
-                              body='Esta es una alerta prueba ejemplo completamente editable. Details: dazalert.com',      
-                              to='whatsapp:+50241067266' 
-                          ) 
- 
-    print(message.sid)
     return {
-        'Code': 'Conectado',
-        'Whatsapp': message.sid,
+        'Code': 'Conectado'
     }
 
 @app.route("/alerta", methods=['POST', 'GET'])
@@ -69,18 +57,21 @@ def post_alerta():
     precio = data['precio']
     indicadores = data['indicadores']
     texto = data['texto']
+
+    
+    
+    #whatsapp
     account_sid = 'AC6e062b7d696ef5104f95ecebb202aae6' 
-    auth_token = '556257ac7c51cb2470f35316e6ddac47' 
+    auth_token = 'b1ebc41cf5eb9c956bf9f9f3ac526ee0' 
     client = Client(account_sid, auth_token) 
  
     message = client.messages.create( 
                               from_='whatsapp:+14155238886',  
-                              body='Esta es una alerta prueba ejemplo completamente editable. Details: dazalert.com',      
+                              body= data['texto'],      
                               to='whatsapp:+50241067266' 
                           ) 
  
     print(message.sid)
-    
 
     mydb = mysql.connector.connect(
         host="sql5.freesqldatabase.com",
@@ -106,10 +97,8 @@ def post_alerta():
     mydb.commit()
 
     if(int(mycursor.rowcount) > 0):
-        return {
-        'Code': 'Notif recibida a base de datos',
-        'Whatsapp': message.sid,
-    }
+        return data
+    
     else:
         return False
 
