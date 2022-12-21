@@ -84,10 +84,10 @@ def post_alerta():
     mydb.commit()
 
     if(int(mycursor.rowcount) > 0):
-        return "True"
+        return True
     
     else:
-        return "False"
+        return False
 
 @app.route("/get_alerta", methods=["GET"])
 @cross_origin()
